@@ -1,0 +1,147 @@
+{
+  "0": {
+    "fileName": "ac01.wav",
+    "sa": 276,
+    "tuning": "PSSS"
+  },
+  "1": {
+    "fileName": "ac02.wav",
+    "sa": 276,
+    "tuning": "PSSS"
+  },
+  "2": {
+    "fileName": "ac04.wav",
+    "sa": 138,
+    "tuning": "PSSS"
+  },
+  "3": {
+    "fileName": "ac05.wav",
+    "sa": 138,
+    "tuning": "MSSS"
+  },
+  "4": {
+    "fileName": "ac06.wav",
+    "sa": 138,
+    "tuning": "PDSS"
+  },
+  "5": {
+    "fileName": "ac08.wav",
+    "sa": 138,
+    "tuning": "PSSS"
+  },
+  "6": {
+    "fileName": "ac09.wav",
+    "sa": 138,
+    "tuning": "PNSS"
+  },
+  "7": {
+    "fileName": "ac10.wav",
+    "sa": 233,
+    "tuning": "PSSS"
+  },
+  "8": {
+    "fileName": "ac11.wav",
+    "sa": 233,
+    "tuning": "PSSS"
+  },
+  "9": {
+    "fileName": "ac12.wav",
+    "sa": 233,
+    "tuning": "MSSS"
+  },
+  "10": {
+    "fileName": "el02.wav",
+    "sa": 130.8,
+    "tuning": "PSSS"
+  },
+  "11": {
+    "fileName": "el03.wav",
+    "sa": 130.8,
+    "tuning": "PSSS"
+  },
+  "12": {
+    "fileName": "el04.wav",
+    "sa": 130.8,
+    "tuning": "PSSS"
+  },
+  "13": {
+    "fileName": "el05.wav",
+    "sa": 130.8,
+    "tuning": "PSSS"
+  },
+  "14": {
+    "fileName": "el06.wav",
+    "sa": 110,
+    "tuning": "PSSS"
+  },
+  "15": {
+    "fileName": "el07.wav",
+    "sa": 110,
+    "tuning": "MSSS"
+  },
+  "16": {
+    "fileName": "el08.wav",
+    "sa": 110,
+    "tuning": "NSSS"
+  },
+  "17": {
+    "fileName": "el09.wav",
+    "sa": 130.8,
+    "tuning": "PSSS"
+  },
+  "18": {
+    "fileName": "el10.wav",
+    "sa": 130.8,
+    "tuning": "MSSS"
+  },
+  "19": {
+    "fileName": "el11.wav",
+    "sa": 130.8,
+    "tuning": "NSSS"
+  },
+  "20": {
+    "fileName": "el12.wav",
+    "sa": 146.8,
+    "tuning": "PSSS"
+  },
+  "21": {
+    "fileName": "el13.wav",
+    "sa": 146.8,
+    "tuning": "MSSS"
+  },
+  "22": {
+    "fileName": "el14.wav",
+    "sa": 146.8,
+    "tuning": "NSSS"
+  },
+  "23": {
+    "fileName": "el15.wav",
+    "sa": 164.8,
+    "tuning": "PSSS"
+  },
+  "24": {
+    "fileName": "el16.wav",
+    "sa": 164.8,
+    "tuning": "MSSS"
+  },
+  "25": {
+    "fileName": "el17.wav",
+    "sa": 164.8,
+    "tuning": "NSSS"
+  },
+  "26": {
+    "fileName": "el18.wav",
+    "sa": 185,
+    "tuning": "PSSS"
+  },
+  "27": {
+    "fileName": "el19.wav",
+    "sa": 185,
+    "tuning": "MSSS"
+  },
+  "28": {
+    "fileName": "el20.wav",
+    "sa": 185,
+    "tuning": "NSSS"
+  }
+}
