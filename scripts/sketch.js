@@ -8,6 +8,7 @@ var mainColor;
 var soundsInfo;
 var sounds = [];
 var sadjaList = [];
+var mic, recorder, recFile;
 var currentSound;
 var sadja;
 
@@ -33,6 +34,10 @@ function setup () {
   textFont("Laila");
   strokeJoin(ROUND);
 
+  mic = new p5.AudioIn();
+  recorder = new p5.SoundRecorder();
+  recorder.setInput(mic);
+  soundFile = new p5.SoundFile();
   sadja = new p5.Oscillator();
 
   buttonSearchSound = createButton("Comienza")
@@ -54,9 +59,9 @@ function setup () {
     .attribute("disabled", "true")
     .parent("sketch-holder");
   buttonRecord = createButton("Graba")
-    .size(75, 25)
+    .size(100, 25)
     .position(buttonSadja.x + buttonSadja.width + 15, buttonPlay.y)
-    .mouseClicked(recorder)
+    .mouseClicked(recordVoice)
     .attribute("disabled", "true")
     .parent("sketch-holder");
 
@@ -100,7 +105,7 @@ function draw () {
 }
 
 function player () {
-  if (buttonPlay.html() == "Toca") {
+  if (buttonPlay.html() == "Toca" && buttonRecord.html() == "Graba") {
     currentSound.loop();
     buttonPlay.html("Para");
     buttonRecord.removeAttribute("disabled");
@@ -111,15 +116,36 @@ function player () {
   }
 }
 
-function recorder () {
+function recordVoice () {
   if (buttonRecord.html() == "Graba") {
-    buttonRecord.html("Para");
-    buttonSadja.attribute("disabled", "true");
+    buttonSearchSound.attribute("disabled", "true");
     buttonPlay.attribute("disabled", "true");
+    buttonSadja.attribute("disabled", "true");
+    buttonRecord.html("Grabando...");
+    buttonRecord.attribute("disabled", "true");
+    recorder.record(soundFile, 5, function () {
+      currentSound.stop();
+      buttonSearchSound.removeAttribute("disabled");
+      buttonSadja.removeAttribute("disabled");
+      buttonPlay.removeAttribute("disabled");
+      buttonRecord.html("¡Escúchate!");
+      buttonRecord.removeAttribute("disabled");
+      mic.stop();
+    });
   } else {
-    buttonRecord.html("Graba");
-    buttonSadja.removeAttribute("disabled");
-    buttonPlay.removeAttribute("disabled");
+    soundFile.play();
+    currentSound.loop(0, currentSound.rate(), 0.2);
+    buttonSearchSound.attribute("disabled", "true");
+    buttonPlay.attribute("disabled", "true");
+    buttonSadja.attribute("disabled", "true");
+    buttonRecord.attribute("disabled", "true");
+    soundFile.onended(function () {
+      currentSound.stop();
+      buttonSearchSound.removeAttribute("disabled");
+      buttonPlay.removeAttribute("disabled");
+      buttonSadja.removeAttribute("disabled");
+      buttonRecord.removeAttribute("disabled");
+    });
   }
 }
 
@@ -136,6 +162,7 @@ function soundLoader () {
     currentSound = sounds[index];
     print(index, currentSound);
     sadja.freq(sadjaList[index]);
+    mic.start();
     buttonSearchSound.html("Re-afina");
     buttonPlay.removeAttribute("disabled");
     buttonSadja.removeAttribute("disabled");
