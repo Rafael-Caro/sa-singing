@@ -14,6 +14,7 @@ var sadja;
 var buttonSearchSound;
 var buttonPlay;
 var buttonSadja;
+var buttonRecord;
 
 function preload () {
   soundsInfo = loadJSON("files/soundsInfo.json");
@@ -50,6 +51,12 @@ function setup () {
     .position(buttonPlay.x + buttonPlay.width + 15, buttonPlay.y)
     .mousePressed(function () {sadja.start();})
     .attribute("onmouseup", "sadja.stop()")
+    .attribute("disabled", "true")
+    .parent("sketch-holder");
+  buttonRecord = createButton("Graba")
+    .size(75, 25)
+    .position(buttonSadja.x + buttonSadja.width + 15, buttonPlay.y)
+    .mouseClicked(recorder)
     .attribute("disabled", "true")
     .parent("sketch-holder");
 
@@ -96,9 +103,23 @@ function player () {
   if (buttonPlay.html() == "Toca") {
     currentSound.loop();
     buttonPlay.html("Para");
+    buttonRecord.removeAttribute("disabled");
   } else {
     currentSound.stop();
     buttonPlay.html("Toca");
+    buttonRecord.attribute("disabled", "true");
+  }
+}
+
+function recorder () {
+  if (buttonRecord.html() == "Graba") {
+    buttonRecord.html("Para");
+    buttonSadja.attribute("disabled", "true");
+    buttonPlay.attribute("disabled", "true");
+  } else {
+    buttonRecord.html("Graba");
+    buttonSadja.removeAttribute("disabled");
+    buttonPlay.removeAttribute("disabled");
   }
 }
 
