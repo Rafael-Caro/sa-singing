@@ -44,13 +44,11 @@ function draw () {
 
 function player () {
   if (buttonPlay.html() == "Toca") {
-    currentSound.play();
+    currentSound.loop();
     buttonPlay.html("Para");
-    print("tocando");
   } else {
     currentSound.stop();
     buttonPlay.html("Toca");
-    print("parado");
   }
 }
 
@@ -68,6 +66,10 @@ function soundLoader () {
     buttonSearchSound.html("Re-afina");
     buttonPlay.removeAttribute("disabled");
   } else {
+    if (currentSound.isPlaying()) {
+      currentSound.stop();
+      buttonPlay.html("Toca");
+    }
     var index = int(random(Object.keys(soundsInfo).length));
     currentSound = sounds[index];
     print(index, currentSound);
