@@ -105,14 +105,22 @@ function draw () {
 }
 
 function player () {
-  if (buttonPlay.html() == "Toca" && buttonRecord.html() == "Graba") {
+  if (buttonPlay.html() == "Toca") {
     currentSound.loop();
     buttonPlay.html("Para");
-    buttonRecord.removeAttribute("disabled");
+    if (buttonRecord.html() == "Graba") {
+      buttonRecord.removeAttribute("disabled");
+    } else {
+      buttonRecord.attribute("disabled", "true");
+    }
   } else {
     currentSound.stop();
     buttonPlay.html("Toca");
-    buttonRecord.attribute("disabled", "true");
+    if (buttonRecord.html() == "Graba") {
+      buttonRecord.attribute("disabled", "true");
+    } else {
+      buttonRecord.removeAttribute("disabled");
+    }
   }
 }
 
@@ -126,8 +134,9 @@ function recordVoice () {
     recorder.record(soundFile, 5, function () {
       currentSound.stop();
       buttonSearchSound.removeAttribute("disabled");
-      buttonSadja.removeAttribute("disabled");
       buttonPlay.removeAttribute("disabled");
+      buttonPlay.html("Toca");
+      buttonSadja.removeAttribute("disabled");
       buttonRecord.html("¡Escúchate!");
       buttonRecord.removeAttribute("disabled");
       mic.stop();
@@ -137,13 +146,11 @@ function recordVoice () {
     currentSound.loop(0, currentSound.rate(), 0.2);
     buttonSearchSound.attribute("disabled", "true");
     buttonPlay.attribute("disabled", "true");
-    buttonSadja.attribute("disabled", "true");
     buttonRecord.attribute("disabled", "true");
     soundFile.onended(function () {
       currentSound.stop();
       buttonSearchSound.removeAttribute("disabled");
       buttonPlay.removeAttribute("disabled");
-      buttonSadja.removeAttribute("disabled");
       buttonRecord.removeAttribute("disabled");
     });
   }
@@ -175,5 +182,10 @@ function soundLoader () {
     currentSound = sounds[index];
     sadja.freq(sadjaList[index]);
     print(index, currentSound);
+    mic.start();
+    buttonPlay.html("Toca");
+    buttonRecord.html("Graba");
+    buttonRecord.attribute("disabled", "true");
+    soundFile = new p5.SoundFile();
   }
 }
