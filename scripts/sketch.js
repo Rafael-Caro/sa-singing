@@ -1,6 +1,7 @@
 var extraSpaceH = 50;
 var extraSpaceW = 0;
 var mainSpace = 600;
+var tanpura;
 var backColor;
 var mainColor;
 
@@ -16,6 +17,7 @@ var buttonSadja;
 
 function preload () {
   soundsInfo = loadJSON("files/soundsInfo.json");
+  tanpura = loadImage("files/tanpura-sombra.png");
 }
 
 function setup () {
@@ -69,9 +71,9 @@ function draw () {
   textStyle(NORMAL);
   textSize(30);
   strokeWeight(5);
-  stroke(0);
-  mainColor.setAlpha(255);
-  fill(mainColor);
+  stroke(120, 0, 0);
+  // mainColor.setAlpha(255);
+  fill(backColor);
   text("Ṣaḍja", extraSpaceW+mainSpace/2, extraSpaceH+15*3);
   textAlign(CENTER, CENTER);
   stroke(0);
@@ -79,6 +81,15 @@ function draw () {
   textSize(20);
   fill(0, 150);
   text("Tānpūra", extraSpaceW+mainSpace/2, extraSpaceH+15*3+45);
+
+  push()
+  translate(extraSpaceW+mainSpace/2, extraSpaceH+mainSpace/2);
+  image(tanpura, 0, 10, tanpura.width/2.6, tanpura.height/2.6);
+  noFill();
+  stroke(120, 0, 0);
+  strokeWeight(3);
+  ellipse(0, 0, mainSpace/3.5, mainSpace/3.5);
+  pop()
 }
 
 function player () {
