@@ -1,4 +1,4 @@
-var extraSpaceH = 50;
+var extraSpaceH = 55;
 var extraSpaceW = 0;
 var mainSpace = 600;
 var tanpura;
@@ -12,6 +12,7 @@ var mic, recorder, recFile;
 var currentSound;
 var sadja;
 
+var selectMode;
 var buttonSearchSound;
 var buttonPlay;
 var buttonSadja;
@@ -40,6 +41,13 @@ function setup () {
   soundFile = new p5.SoundFile();
   sadja = new p5.Oscillator();
 
+  selectMode = createSelect()
+    .size(120, 25)
+    .position(15, 15)
+    .changed(practiceMode)
+    .parent("sketch-holder");
+  selectMode.option("Modo estudio", "0");
+  selectMode.option("Modo práctica", "1");
   buttonSearchSound = createButton("Comienza")
     .size(75, 25)
     .position(extraSpaceW + 15, extraSpaceH + mainSpace - 40)
@@ -63,6 +71,7 @@ function setup () {
     .position(buttonSadja.x + buttonSadja.width + 15, buttonPlay.y)
     .mouseClicked(recordVoice)
     .attribute("disabled", "true")
+    .attribute("hidden", "true")
     .parent("sketch-holder");
 
   backColor = color(205, 92, 92);
@@ -156,6 +165,17 @@ function recordVoice () {
   }
 }
 
+function practiceMode () {
+  if (selectMode.value() == "0") {
+    buttonRecord.attribute("hidden", "true");
+    retune();
+  } else {
+    buttonRecord.removeAttribute("hidden");
+    buttonSadja.attribute("disabled", "true");
+    retune();
+  }
+}
+
 function soundLoader () {
   if (sounds.length == 0) {
     var start = millis();
@@ -166,9 +186,7 @@ function soundLoader () {
     var timeLapse = millis() - start;
     print("All sounds loaded in " + str(timeLapse) + " seconds.");
     var index = int(random(Object.keys(soundsInfo).length));
-    currentSound = sounds[index];
-    print(index, currentSound);
-    sadja.freq(sadjaList[index]);
+    retune();
     mic.start();
     buttonSearchSound.html("Re-afina");
     buttonPlay.removeAttribute("disabled");
@@ -178,14 +196,21 @@ function soundLoader () {
       currentSound.stop();
       buttonPlay.html("Toca");
     }
-    var index = int(random(Object.keys(soundsInfo).length));
-    currentSound = sounds[index];
-    sadja.freq(sadjaList[index]);
-    print(index, currentSound);
+    retune();
     mic.start();
     buttonPlay.html("Toca");
     buttonRecord.html("Graba");
     buttonRecord.attribute("disabled", "true");
+    if (selectMode.value() == "1") {
+      buttonSadja.attribute("disabled", "true");
+    }
     soundFile = new p5.SoundFile();
   }
+}
+
+function retune () {
+  var index = int(random(Object.keys(soundsInfo).length));
+  currentSound = sounds[index];
+  sadja.freq(sadjaList[index]);
+  print(index, currentSound);
 }
