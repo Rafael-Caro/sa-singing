@@ -169,10 +169,12 @@ function practiceMode () {
   if (selectMode.value() == "0") {
     buttonRecord.attribute("hidden", "true");
     retune();
+    mic.stop();
   } else {
     buttonRecord.removeAttribute("hidden");
     buttonSadja.attribute("disabled", "true");
     retune();
+    mic.start();
   }
 }
 
@@ -187,7 +189,6 @@ function soundLoader () {
     print("All sounds loaded in " + str(timeLapse) + " seconds.");
     var index = int(random(Object.keys(soundsInfo).length));
     retune();
-    mic.start();
     buttonSearchSound.html("Re-afina");
     buttonPlay.removeAttribute("disabled");
     buttonSadja.removeAttribute("disabled");
@@ -197,11 +198,11 @@ function soundLoader () {
       buttonPlay.html("Toca");
     }
     retune();
-    mic.start();
     buttonPlay.html("Toca");
     buttonRecord.html("Graba");
     buttonRecord.attribute("disabled", "true");
     if (selectMode.value() == "1") {
+      mic.start();
       buttonSadja.attribute("disabled", "true");
     }
     soundFile = new p5.SoundFile();
