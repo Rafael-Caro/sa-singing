@@ -42,6 +42,7 @@ function setup () {
   recorder.setInput(mic);
   soundFile = new p5.SoundFile();
   sadja = new p5.Oscillator();
+  sadja.setType("sawtooth");
 
   selectMode = createSelect()
     .size(120, 25)
