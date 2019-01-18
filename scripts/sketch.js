@@ -7,12 +7,14 @@ var mainColor;
 
 var soundsInfo;
 var sounds = [];
+var soundsList;
 var sadjaList = [];
 var mic, recorder, recFile;
 var currentSound;
 var sadja;
 
 var selectMode;
+var selectLevel;
 var buttonSearchSound;
 var buttonPlay;
 var buttonSadja;
@@ -44,10 +46,18 @@ function setup () {
   selectMode = createSelect()
     .size(120, 25)
     .position(15, 15)
-    .changed(practiceMode)
+    .changed(changeMode)
     .parent("sketch-holder");
   selectMode.option("Modo estudio", "0");
   selectMode.option("Modo práctica", "1");
+  selectLevel = createSelect()
+    .size(100, 25)
+    .position(selectMode.x + selectMode.width + 10, 15)
+    .changed(changeLevel)
+    .parent("sketch-holder");
+  selectLevel.option("Nivel 1", "level1");
+  selectLevel.option("Nivel 2", "level2");
+  selectLevel.option("Nivel 3", "level3");
   buttonSearchSound = createButton("Comienza")
     .size(75, 25)
     .position(extraSpaceW + 15, extraSpaceH + mainSpace - 40)
@@ -165,7 +175,7 @@ function recordVoice () {
   }
 }
 
-function practiceMode () {
+function changeMode () {
   if (selectMode.value() == "0") {
     buttonRecord.attribute("hidden", "true");
     retune();
@@ -174,44 +184,48 @@ function practiceMode () {
     buttonRecord.removeAttribute("hidden");
     buttonSadja.attribute("disabled", "true");
     retune();
-    mic.start();
   }
+}
+
+function changeLevel () {
+  soundsList = soundsInfo.levels[selectLevel.value()];
+  retune();
 }
 
 function soundLoader () {
   if (sounds.length == 0) {
     var start = millis();
-    for (var i = 0; i < Object.keys(soundsInfo).length; i++) {
-      sounds[i] = loadSound("sounds/" + soundsInfo[str(i)].fileName);
-      sadjaList[i] = soundsInfo[str(i)].sa;
+    for (var i = 0; i < soundsInfo.soundsLib.length; i++) {
+      print(soundsInfo.soundsLib[str(i)].fileName);
+      sounds[i] = loadSound("sounds/" + soundsInfo.soundsLib[str(i)].fileName);
+      sadjaList[i] = soundsInfo.soundsLib[str(i)].sa;
     }
     var timeLapse = millis() - start;
     print("All sounds loaded in " + str(timeLapse) + " seconds.");
-    var index = int(random(Object.keys(soundsInfo).length));
+    soundsList = soundsInfo.levels[selectLevel.value()];
     retune();
     buttonSearchSound.html("Re-afina");
     buttonPlay.removeAttribute("disabled");
     buttonSadja.removeAttribute("disabled");
   } else {
-    if (currentSound.isPlaying()) {
-      currentSound.stop();
-      buttonPlay.html("Toca");
-    }
     retune();
-    buttonPlay.html("Toca");
-    buttonRecord.html("Graba");
-    buttonRecord.attribute("disabled", "true");
-    if (selectMode.value() == "1") {
-      mic.start();
-      buttonSadja.attribute("disabled", "true");
-    }
-    soundFile = new p5.SoundFile();
   }
 }
 
 function retune () {
-  var index = int(random(Object.keys(soundsInfo).length));
+  if (currentSound != undefined && currentSound.isPlaying()) {
+    currentSound.stop();
+    buttonPlay.html("Toca");
+  }
+  var index = soundsList[int(random(soundsList.length))];
   currentSound = sounds[index];
   sadja.freq(sadjaList[index]);
-  print(index, currentSound);
+  print(index, currentSound, currentSound.duration());
+  buttonRecord.html("Graba");
+  buttonRecord.attribute("disabled", "true");
+  if (selectMode.value() == "1") {
+    mic.start();
+    buttonSadja.attribute("disabled", "true");
+    soundFile = new p5.SoundFile();
+  }
 }
