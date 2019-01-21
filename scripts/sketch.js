@@ -94,9 +94,7 @@ function setup () {
 
   backColor = color(205, 92, 92);
   mainColor = color(77, 208, 225);
-}
 
-function draw () {
   background(254, 249, 231);
   noStroke();
   fill(backColor);
@@ -130,6 +128,8 @@ function draw () {
   ellipse(0, 0, mainSpace/3.5, mainSpace/3.5);
   pop()
 }
+
+function draw () {}
 
 function player () {
   if (buttonPlay.html() == "Toca") {
