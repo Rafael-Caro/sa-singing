@@ -186,6 +186,7 @@ function recordVoice () {
 function changeMode () {
   if (selectMode.value() == "0") {
     buttonRecord.attribute("hidden", "true");
+    buttonSadja.removeAttribute("disabled");
     retune();
     mic.stop();
   } else {
