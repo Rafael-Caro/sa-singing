@@ -5,7 +5,7 @@ var tanpura;
 var backColor;
 var mainColor;
 
-var soundsInfo;
+var tanpuraInfo;
 var sounds = [];
 var soundsList;
 var sadjaList = [];
@@ -21,8 +21,8 @@ var buttonSadja;
 var buttonRecord;
 
 function preload () {
-  soundsInfo = loadJSON("files/soundsInfo.json");
-  tanpura = loadImage("files/tanpura-sombra.png");
+  tanpuraInfo = loadJSON("files/tanpuraInfo.json");
+  tanpura = loadImage("images/tanpura.png");
 }
 
 function setup () {
@@ -197,21 +197,21 @@ function changeMode () {
 }
 
 function changeLevel () {
-  soundsList = soundsInfo.levels[selectLevel.value()];
+  soundsList = tanpuraInfo.levels[selectLevel.value()];
   retune();
 }
 
 function soundLoader () {
   if (sounds.length == 0) {
     var start = millis();
-    for (var i = 0; i < soundsInfo.soundsLib.length; i++) {
-      print(soundsInfo.soundsLib[str(i)].fileName);
-      sounds[i] = loadSound("sounds/" + soundsInfo.soundsLib[str(i)].fileName);
-      sadjaList[i] = soundsInfo.soundsLib[str(i)].sa;
+    for (var i = 0; i < tanpuraInfo.soundsLib.length; i++) {
+      print(tanpuraInfo.soundsLib[str(i)].fileName);
+      sounds[i] = loadSound("sounds/tanpura/" + tanpuraInfo.soundsLib[str(i)].fileName);
+      sadjaList[i] = tanpuraInfo.soundsLib[str(i)].sa;
     }
     var timeLapse = millis() - start;
     print("All sounds loaded in " + str(timeLapse) + " seconds.");
-    soundsList = soundsInfo.levels[selectLevel.value()];
+    soundsList = tanpuraInfo.levels[selectLevel.value()];
     retune();
     buttonSearchSound.html("Re-afina");
     buttonPlay.removeAttribute("disabled");
